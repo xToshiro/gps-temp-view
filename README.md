@@ -6,6 +6,8 @@ This is an Arduino project developed to monitor urban heat islands in the city. 
 ## Objective
 
 The objective of this project is to install the device in a vehicle to collect environmental data such as temperature, pressure, and humidity while the vehicle moves through the city. The data is recorded along with GPS location information, allowing for the mapping of urban heat islands in the city.
+![testbusearth](testbusearth.png)
+
 
 ## Required Components
 
