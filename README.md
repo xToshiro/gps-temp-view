@@ -21,7 +21,7 @@ The objective of this project is to install the device in a vehicle to collect e
 ## Assembly
 
 1. Connect the ESP32, BME280 sensor, NEO-6M GPS module, and SD Card module to the prototyping board according to the appropriate connection scheme.
-
+![CircuitAirTemp](CircuitAirTemp.png)
 2. Power the ESP32 with the power supply and ensure all components are properly connected.
 
 ## Configuration
@@ -57,7 +57,7 @@ In the latest update, Version 4.0, named "AirTemp View," we have introduced sign
 1. **Real-Time Clock (RTC) Synchronization:** With Version 4.0, we have implemented real-time clock (RTC) synchronization. The ESP32's internal RTC is now synchronized with the date and time data from the GPS module. This synchronization ensures accurate timekeeping during data collection.
 
 2. **Second-Level Data Collection:** Data is now collected at the second level of granularity. This increased frequency allows for more precise tracking of environmental conditions. The ESP32's internal RTC is used as a synchronization factor for the seconds, ensuring that data is consistently collected every second.
-
+![EverySecond](every_second.png)
 3. **Backup GPS Synchronization:** Users now have the flexibility to use a backup GPS, such as a mobile application, for synchronization. Data can be synchronized later by aligning the date and time from the backup GPS with the collected data.
 
 #### How to Upgrade:
