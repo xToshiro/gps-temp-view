@@ -1,29 +1,19 @@
 void saveData() {
-  //digitalWrite(LED_YELLOW, HIGH);
-
-  // Oq custa dar um enter e quebra a linha pra não ficar kilometrica???
-  // Pq buga o enter na outra ide, anyway
   dataMessage = String(rtcdia) + "/" + String(rtcmes) + "/" + String(rtcano) + "," + String(rtchora) + ":" + String(rtcminuto) + ":" + String(rtcsegundo) + "," + String(gpsdia) + "/" + String(gpsmes) + "/" + String(gpsano) + "," + String(gpshora) + ":" + String(gpsminuto) + ":" + String(gpssegundo) + "," + String(latitudeStr) + "," + String(longitudeStr) + ","
-                + String(gpsalt) + "," + String(gpsvel) + "," + String(temp) + "," + String(pres) + "," + String(hum) + "," + String(alt) + "," + "\r\n";
-  //Serial.print("Saving data: ");
-  Serial.print(F("- data appended: "));
-  Serial.print(dataMessage);
-
-  // É aqui que a criança chora e a mãe não vê
+                + String(gpsalt) + "," + String(gpsvel) + "," + String(temp) + "," + String(pres) + "," + String(hum) + "," + String(alt) + "," + String(gpsUpdate) + "," + "\r\n";
+  Serial.print(F("- data appended: ")); Serial.print(dataMessage);
   appendFile(SD, "/data.csv", dataMessage.c_str());
-
-  //digitalWrite(LED_YELLOW, LOW);
 }
 
-// Essa função checa se o arquivo data.csv existe junto com o cabeçalho certo
-// Caso não exista, ele chama a função writeFile para criar o arquivo
+//This function checks if the data.csv file exists along with the right header
+//If it doesn't exist, it calls the writeFile function to create the file
 void checkSDFile() {
   File file = SD.open("/data.csv");
   if (!file) {
     Serial.println("File doesn't exist");
     Serial.println("Creating file...");
     delay(1000);
-    writeFile(SD, "/data.csv", "RTCData, RTCHora, GPSData, GPSHora, Lat, Long, Altgps, Vel, Temp, Pres, Hum, Altbme \r\n");
+    writeFile(SD, "/data.csv", "RTCData, RTCHora, GPSData, GPSHora, Lat, Long, Altgps, Vel, Temp, Pres, Hum, Altbme, GPSUpdate \r\n");
   } else {
     Serial.println("File already exists");
   }
@@ -31,8 +21,8 @@ void checkSDFile() {
   delay(1000);
 }
 
-// Inicia o SDcard assim que o sistema é ligado
-// Verifica se ele esta presente e funcionando
+//Starts the SDcard as soon as the system is powered on
+//Verifies that it is present and working
 void initSDCard() {
   if (!SD.begin()) {
   } else {
@@ -40,7 +30,7 @@ void initSDCard() {
   }
   uint8_t cardType = SD.cardType();
 
-  // Verifica o tipo de cartão SD e o espaço livre
+  //Checks SD card type and free space
   if (cardType == CARD_NONE) {
     return;
   }
@@ -59,10 +49,9 @@ void initSDCard() {
 }
 
 
-// Grava o arquivo data.csv caso ele não exista
+// Writes the data file.csv if it doesn't exist
 void writeFile(fs::FS &fs, const char *path, const char *message) {
   Serial.printf("Writing file: %s\n", path);
-
   File file = fs.open(path, FILE_WRITE);
   if (!file) {
     Serial.println("Failed to open file for writing");
@@ -76,13 +65,12 @@ void writeFile(fs::FS &fs, const char *path, const char *message) {
   file.close();
 }
 
-// Grava os dados gerados em dataSave e passados pela string dataMensseger
+// Writes the data generated in dataSave and passed through the dataMensseger string
 void appendFile(fs::FS &fs, const char *path, const char *message) {
   Serial.printf("- appending to file: %s\n", path);
   File file = fs.open(path, FILE_APPEND);
   if (!file) {
     Serial.println("Failed to open file for appending");
-
     delay(250);
   }
   if (file.print(message)) {
