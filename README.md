@@ -1,4 +1,4 @@
-# gps_temp_view
+# AirTemp_View
 # Arduino Project for Urban Heat Island Monitoring with ESP32
 
 This is an Arduino project developed to monitor urban heat islands in the city. It uses an ESP32 with 30 pins, a BME280 temperature, pressure, and humidity sensor, a u-blox NEO-6M GPS module, and an SD Card module to collect georeferenced data of temperature, pressure, and humidity along the route and save this data to a memory card.
@@ -41,6 +41,37 @@ Before uploading the Arduino code to the ESP32, make sure to set up the Arduino 
 ## Data Visualization
 
 You can use data visualization software such as spreadsheets or geographic mapping software to analyze the collected data and map urban heat islands in the city.
+
+# Project Update Log
+
+## Version 4.0 - AirTemp View (Current Version)
+
+### Release Date: 08/10/2023
+
+#### Summary:
+
+In the latest update, Version 4.0, named "AirTemp View," we have introduced significant improvements to the project's data collection process. Now, data is collected every second, providing more granular information for urban heat island monitoring.
+
+#### What's New:
+
+1. **Real-Time Clock (RTC) Synchronization:** With Version 4.0, we have implemented real-time clock (RTC) synchronization. The ESP32's internal RTC is now synchronized with the date and time data from the GPS module. This synchronization ensures accurate timekeeping during data collection.
+
+2. **Second-Level Data Collection:** Data is now collected at the second level of granularity. This increased frequency allows for more precise tracking of environmental conditions. The ESP32's internal RTC is used as a synchronization factor for the seconds, ensuring that data is consistently collected every second.
+
+3. **Backup GPS Synchronization:** Users now have the flexibility to use a backup GPS, such as a mobile application, for synchronization. Data can be synchronized later by aligning the date and time from the backup GPS with the collected data.
+
+#### How to Upgrade:
+
+To take advantage of these new features, please update your project code to Version 4.0. Refer to the updated documentation for instructions on how to implement RTC synchronization and utilize the enhanced data collection capabilities.
+
+#### Notes:
+
+Ensure that you are familiar with the changes introduced in this update and make any necessary adjustments to your project setup for optimal data collection and analysis.
+
+---
+
+**Note:** Always ensure the accuracy of GPS data for reliable synchronization, and consider privacy and data security when handling collected information.
+
 
 ## Contributions
 

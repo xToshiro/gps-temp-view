@@ -5,8 +5,12 @@
 #include <SoftwareSerial.h>
 #include <SD.h>
 #include <SPI.h>
+#include <ESP32Time.h>
 
 #define SEALEVELPRESSURE_HPA (1013.25)
+
+//ESP32Time rtc;
+ESP32Time rtc(-10800);  // offset in seconds GMT+1
 
 
 const int ledVerdePin = 2;
@@ -75,6 +79,20 @@ void ligarLedAmarelo() {
   digitalWrite(ledVerdePin, LOW);
   digitalWrite(ledVermelhoPin, LOW);
   digitalWrite(ledAmareloPin, HIGH);
+}
+
+void rtcSyncWithGps() {
+
+  // This sketch displays information every time a new sentence is correctly encoded.
+  while (ss.available() > 0)
+    if (gps.encode(ss.read()))
+      displayInfo();
+
+  if (millis() > 5000 && gps.charsProcessed() < 10)
+  {
+    Serial.println(F("No GPS detected: check wiring."));
+    while(true);
+  }
 }
 
 
@@ -166,7 +184,7 @@ void bmeRead() {
   }
 }
 
-void loop() {
+void gpsRead() {
   // Verifica se há dados disponíveis na porta serial do GPS
   while (ss.available() > 0)
     // Lê os dados do GPS
@@ -208,3 +226,8 @@ void loop() {
       }
     }
 }
+
+void loop() {
+  
+}
+
